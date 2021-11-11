@@ -1,6 +1,13 @@
-function dropHandler(ev) {
-  console.log('File(s) dropped');
+var drop = function (event) {
+	var event = window.event || event;
+	event.preventDefault();
+	
+	let dt = event.dataTransfer
+	let files = dt.files
+	console.log(files);
+}
 
-  // Prevent default behavior (Prevent file from being opened)
-  ev.preventDefault();
+var allowDrop = function (event) {
+  	var event = window.event || event;
+	event.preventDefault();
 }

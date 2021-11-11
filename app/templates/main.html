@@ -44,21 +44,6 @@
     <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
     <script src="{{url_for('static', filename='js/bootstrap-4.4.1.js')}}"></script>
-	
-    <script>
-		function drop(event) {
-			var event = window.event || event;
-  			event.preventDefault();
-			
-			let dt = event.dataTransfer
-  			let files = dt.files
-			console.log(files);
-		}
-		function allowDrop(event) {
-			var event = window.event || event;
-			event.preventDefault();
-		}
-	</script>
-	  
+    <script src="{{url_for('static', filename='js/upload.js')}}"></script>
   </body>
 </html>

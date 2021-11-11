@@ -1,40 +1,32 @@
-let dropArea = document.getElementById('drop-area');
-
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, preventDefaults, false);
-})
-
-function preventDefaults (e) {
-  e.preventDefault();
-  e.stopPropagation();
+function drop(event) {
+	var event = window.event || event;
+	event.preventDefault();
+	
+	let dt = event.dataTransfer
+	let files = dt.files
+	console.log(files);
+	uploadFile(files[0])
+}
+function allowDrop(event) {
+	var event = window.event || event;
+	event.preventDefault();
 }
 
-['dragenter', 'dragover'].forEach(eventName => {
-  dropArea.addEventListener(eventName, highlight, false);
-})
-
-['dragleave', 'drop'].forEach(eventName => {
-  dropArea.addEventListener(eventName, unhighlight, false);
-})
-
-function highlight(e) {
-  dropArea.classList.add('highlight');
-}
-
-function unhighlight(e) {
-  dropArea.classList.remove('highlight');
-}
-
-dropArea.addEventListener('drop', handleDrop, false);
-dropArea.addEventListener('onclick', document.getElementById('dialog').click(), false);
-
-function handleDrop(e) {
-  let dt = e.dataTransfer;
-  let files = dt.files;
-
-  handleFiles(files);
-}
-
-function handleFiles(files) {
-  console.log(files);
+function uploadFile(file) {
+	var url = '/storeFile'
+	var xhr = new XMLHttpRequest()
+	var formData = new FormData()
+	xhr.open('POST', url, true)
+  
+	xhr.addEventListener('readystatechange', function(e) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			window.location.href = "/link/" + xhr.responseText;
+		}
+		else if (xhr.readyState == 4 && xhr.status != 200) {
+			console.log("ERROR: Could not upload file")
+		}
+	})
+  
+	formData.append('file', file)
+	xhr.send(formData)
 }
