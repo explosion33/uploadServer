@@ -8,10 +8,10 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-  	<link href="css/bootstrap-dark.scss" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link href="{{url_for('static', filename='css/bootstrap-4.4.1.css')}}" rel="stylesheet">
     <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+	  
 
   </head>
   <body>
@@ -25,9 +25,16 @@
        <div class="row text-center">
           <div class="col-lg-6 offset-lg-3">Upload your file here</div>
 </div>
-       <br>
+       <div class="row text-center">
+         <div id="drop-area" ondragover="allowDrop()" ondrop="drop(event)" onclick="document.getElementById('dialog').click()">
+  			<p>Drag one or more files to this Drop Zone ...</p>
+		 </div>
+
+       </div>
+<br>
 <br>
 </div>
+<input type="file" style="display:none" id="dialog"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
@@ -37,5 +44,21 @@
     <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
     <script src="{{url_for('static', filename='js/bootstrap-4.4.1.js')}}"></script>
+	
+    <script>
+		function drop(event) {
+			var event = window.event || event;
+  			event.preventDefault();
+			
+			let dt = event.dataTransfer
+  			let files = dt.files
+			console.log(files);
+		}
+		function allowDrop(event) {
+			var event = window.event || event;
+			event.preventDefault();
+		}
+	</script>
+	  
   </body>
 </html>
