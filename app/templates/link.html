@@ -14,35 +14,28 @@
 	  
 
   </head>
-  <body style="
-			   background-image: url({{url_for('static', filename='images/waves.svg')}});
-			   background-size: 100vw auto; background-repeat:no-repeat;
-			   background-attachment: fixed;
-			   background-position: bottom;
-			  "
-  >
+  <body>
     <div class="text-center">
-       <h1 class="display-4">Uploader</h1>
-       <p class="lead">Upload file, get a link</p>
-</div>
+       <h1 class="display-4">Files Succesfully Uploaded</h1>
+       <p class="lead">&nbsp;</p>
+    </div>
     <br>
- 	<br>
+ 	  <br>
   	<div class="container">
        <div class="row text-center">
-          <div class="col-lg-6 offset-lg-3 col-xs-4 offset-xs-2">Upload your file here</div>
-</div>
-       <div class="row text-center">
-         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)" onclick="document.getElementById('dialog').click()">
-  			<p>Drag one or more files to this Drop Zone ...</p>
-			<form>
-				<input type="file">
-			 </form>
-		 </div>
+          <div class="col-lg-6 offset-lg-3">use this link to access your files&nbsp; &nbsp;</div>
+         <div class="col-lg-6 offset-lg-3">
+			 <a href="{{link}}">{{link}}&nbsp</a>
+		   </div>
+        </div>
+        <div class="row text-center">
+          
+      </div>
 
-       </div>
-<br>
-<br>
-</div>
+    </div>
+    <br>
+    <br>
+  </div>
 <input type="file" style="display:none" id="dialog"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="js/jquery-3.4.1.min.js"></script>
@@ -53,6 +46,5 @@
     <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
     <script src="{{url_for('static', filename='js/bootstrap-4.4.1.js')}}"></script>
-    <script src="{{url_for('static', filename='js/upload.js')}}"></script>
   </body>
 </html>
