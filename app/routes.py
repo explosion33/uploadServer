@@ -10,26 +10,34 @@ from random import randint
 def download_file():
     return render_template('main.html')
 
+
 @app.route('/storeFile', methods=['POST'])
 def storeFile():
     file = request.files['file']
 
-    key = generateKey()
+    key = generateKey(10)
+    key += "." + getExtension(file.filename)
 
+    saveFile(file, key)
+
+    return key
+
+def saveFile(file, key):
     root = os.path.join(app.config['ROOT'], "files\\" + key)
     while(os.path.isdir(root)):
         root = os.path.join(app.config['ROOT'], "files\\" + key)
 
+    
     path = os.path.join(root, secure_filename(file.filename))
 
     os.mkdir(root)
     file.save(path)
 
-    return key
-
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    return "showing " + key 
+    root = request.url_root
+    link = os.path.join(root, key)
+    return render_template('link.html', link=link)
 
 @app.route('/<key>', methods=["GET"])
 def showFile(key):
@@ -40,7 +48,19 @@ def showFile(key):
 
 def secure_filename(name) -> str:
     name = name.replace("../", "")
+    name = name.replace(".." , "")
     return name
 
-def generateKey() -> str:
-    return "keytest" + str(randint(0,100))
+def generateKey(length) -> str:
+    out = ""
+    for i in range(length):
+        isLetter = randint(0,1) == 0
+        if isLetter:
+            out += chr(randint(0,25) + 97)
+        else:
+            out += str(randint(0,9))
+    return out
+
+def getExtension(name) -> str:
+    a = name.split(".")
+    return a[len(a)-1]
