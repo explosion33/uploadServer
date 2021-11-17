@@ -11,10 +11,16 @@
     <link href="css/styles.css" rel="stylesheet">
     <link href="{{url_for('static', filename='css/bootstrap-4.4.1.css')}}" rel="stylesheet">
     <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
-	  
+	
 
   </head>
-  <body>
+  <body style="
+			   background-image: url();
+			   background-size: 100vw 100vh;
+			   background-repeat:no-repeat;
+			   background-attachment: fixed;
+			   background-position: bottom;
+			  ">
     <div class="text-center">
        <h1 class="display-4">Files Succesfully Uploaded</h1>
        <p class="lead">&nbsp;</p>
@@ -24,12 +30,15 @@
   	<div class="container">
        <div class="row text-center">
           <div class="col-lg-6 offset-lg-3">use this link to access your files&nbsp; &nbsp;</div>
-         <div class="col-lg-6 offset-lg-3">
-			 <a href="{{link}}">{{link}}&nbsp</a>
-		   </div>
+		   
         </div>
+		<br>
         <div class="row text-center">
           
+         <div class="col-lg-6 offset-lg-3">
+			 <a href="{{link}}">{{link}}&nbsp</a>
+			 <a class="btn btn-sm btn-outline-light" onclick="navigator.clipboard.writeText('{{link}}')">copy</a>
+		   </div>
       </div>
 
     </div>

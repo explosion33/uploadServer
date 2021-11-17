@@ -16,7 +16,8 @@
   </head>
   <body style="
 			   background-image: url({{url_for('static', filename='images/waves.svg')}});
-			   background-size: 100vw auto; background-repeat:no-repeat;
+			   background-size: 100vw auto;
+			   background-repeat:no-repeat;
 			   background-attachment: fixed;
 			   background-position: bottom;
 			  "
@@ -29,21 +30,19 @@
  	<br>
   	<div class="container">
        <div class="row text-center">
-          <div class="col-lg-6 offset-lg-3 col-xs-4 offset-xs-2">Upload your file here</div>
 </div>
        <div class="row text-center">
-         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)" onclick="document.getElementById('dialog').click()">
+         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
   			<p>Drag one or more files to this Drop Zone ...</p>
-			<form>
-				<input type="file">
-			 </form>
+			 <input class="form-control-file" style="display: none;" type=file id="dialog" name=file onchange="dialog(event)">
+			<input type="button" value="Browse..." onclick="document.getElementById('dialog').click();" />
+			 
 		 </div>
 
        </div>
 <br>
 <br>
 </div>
-<input type="file" style="display:none" id="dialog"/>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
