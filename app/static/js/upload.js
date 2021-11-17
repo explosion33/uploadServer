@@ -15,8 +15,27 @@ function drop(event) {
 	else {
 		packFiles(files);
 	}
-
 }
+
+function dialog(event) {
+	var event = window.event || event;
+
+	var files = event.target.files; 
+	
+	console.log(files);
+	
+	if (files.length == 0) {
+		errorUploading(0);
+	}
+	else if (files.length == 1) {
+		uploadFile(files[0])
+	}
+	else {
+		packFiles(files);
+	}
+	
+}
+
 function allowDrop(event) {
 	var event = window.event || event;
 	event.preventDefault();
