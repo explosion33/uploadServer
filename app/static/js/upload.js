@@ -1,4 +1,4 @@
-function drop(event) {
+var drop = function(event) {
 	var event = window.event || event;
 	event.preventDefault();
 	
@@ -17,7 +17,7 @@ function drop(event) {
 	}
 }
 
-function dialog(event) {
+var dialog = function(event) {
 	var event = window.event || event;
 
 	var files = event.target.files; 
@@ -36,7 +36,7 @@ function dialog(event) {
 	
 }
 
-function allowDrop(event) {
+var allowDrop = function(event) {
 	var event = window.event || event;
 	event.preventDefault();
 }
