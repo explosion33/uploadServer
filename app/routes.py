@@ -16,7 +16,7 @@ def storeFile():
     file = request.files['file']
 
     key = generateKey(10)
-    key += "." + getExtension(file.filename)
+    key += "." + getExtension(file.filename).lower()
 
     saveFile(file, key)
 
