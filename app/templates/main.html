@@ -23,33 +23,31 @@
 			  "
   >
     <div class="text-center">
-       <h1 class="display-4">Uploader</h1>
-       <p class="lead">Upload file, get a link</p>
-</div>
+      <h1 class="display-4">Uploader</h1>
+      <p class="lead">Upload file, get a link</p>
+    </div>
     <br>
- 	<br>
+ 	  <br>
   	<div class="container">
-       <div class="row text-center">
-</div>
       <div class="row text-center">
-         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
+        <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
   			    <p>Drag one or more files to this Drop Zone ...</p>
 		        <input class="form-control-file" style="display: none;" type=file id="dialog" name=file onchange="dialog(event)">
 		        <input type="button" value="Browse..." onclick="document.getElementById('dialog').click();" />
 			 
-		      </div>
-      </div>
+		  </div>
+    </div>
 
-      <br>
+    <br>
 
-      <div class="col-lg-6 offset-lg-3">
-        <div class="progress">
-          <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
+    <div class="col-lg-6 offset-lg-3">
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-<br>
-<br>
-</div>
+    </div>
+    <br>
+    <br>
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>
@@ -59,6 +57,9 @@
     <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
     <script src="{{url_for('static', filename='js/bootstrap-4.4.1.js')}}"></script>
+
+    <!-- custom scripts -->>
+
     <script src="{{url_for('static', filename='js/upload.js')}}"></script>
   </body>
 </html>
