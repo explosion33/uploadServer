@@ -75,6 +75,10 @@ function uploadFile(file) {
 		}
 	  }, false);
   
-	formData.append('file', file)
-	xhr.send(formData)
+	let s = "" + file.size;
+	console.log(s);
+	formData.append('size', file.size);
+	formData.append('big', file.size > 1000000000);
+	formData.append('file', file);
+	xhr.send(formData);
 }
