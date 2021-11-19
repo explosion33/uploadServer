@@ -57,9 +57,23 @@ function uploadFile(file) {
 			window.location.href = "/link/" + xhr.responseText;
 		}
 		else if (xhr.readyState == 4 && xhr.status != 200) {
-			console.log("ERROR: Could not upload file")
+			console.log("ERROR: Could not upload file " + xhr.status);
 		}
 	})
+
+	xhr.upload.addEventListener("progress", function(e) {
+		if (e.lengthComputable) {
+			var percentComplete = e.loaded / e.total;
+			percentComplete = parseInt(percentComplete * 100);
+		  
+			let bar = document.getElementById("progress-bar");
+			bar.style.width = percentComplete + "%";
+			if (percentComplete >= 5) {
+				bar.innerText = percentComplete + "%";
+			}
+
+		}
+	  }, false);
   
 	formData.append('file', file)
 	xhr.send(formData)

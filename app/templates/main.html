@@ -31,15 +31,22 @@
   	<div class="container">
        <div class="row text-center">
 </div>
-       <div class="row text-center">
+      <div class="row text-center">
          <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
-  			<p>Drag one or more files to this Drop Zone ...</p>
-			 <input class="form-control-file" style="display: none;" type=file id="dialog" name=file onchange="dialog(event)">
-			<input type="button" value="Browse..." onclick="document.getElementById('dialog').click();" />
+  			    <p>Drag one or more files to this Drop Zone ...</p>
+		        <input class="form-control-file" style="display: none;" type=file id="dialog" name=file onchange="dialog(event)">
+		        <input type="button" value="Browse..." onclick="document.getElementById('dialog').click();" />
 			 
-		 </div>
+		      </div>
+      </div>
 
-       </div>
+      <br>
+
+      <div class="col-lg-6 offset-lg-3">
+        <div class="progress">
+          <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
 <br>
 <br>
 </div>
