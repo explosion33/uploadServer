@@ -69,6 +69,11 @@ def showFile(key):
 
     return send_from_directory(root, os.listdir(root)[0])
 
+@app.route('/favicon.ico', methods=['GET'])
+def getIcon():
+    root = os.path.join(app.config['ROOT'], "app")
+    root = os.path.join(root, "static\\images")
+    return send_from_directory(root, "favicon.ico")
 
 def secure_filename(name) -> str:
     name = name.replace("../", "")
