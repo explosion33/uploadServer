@@ -4,10 +4,16 @@ import os
 from app import app
 from random import randint
 
+import time
+from flask_executor import Executor
+
+executor = Executor(app)
+
 class markedFile:
     def __init__(this, key, time=0) -> None:
         this.key = key
         this.time = time
+        this.lastPath = this.getPath()
 
 
     def getPath(this) -> str:
@@ -24,7 +30,12 @@ class markedFile:
     def delete(this):
         this.rmrf(this.getPath())
 
-markedFiles = []
+    def timer(this):
+        time.sleep(this.time*60)
+        this.delete()
+        markedFiles.remove(this.key)
+
+markedFiles = {}
 
 #main page
 @app.route('/', methods=['GET'])
@@ -42,17 +53,25 @@ def storeFile():
     key = generateKey(10)
     key += "." + getExtension(file.filename).lower()
 
-    if request.form["big"]:
-        markForDeletion(key)
+    saveFile(file, key)
+
+    if request.form["big"] == "true":
+        f = markedFile(key, getStoreTime(request.form['size']))
+        print(f.getPath() + " will be deleted after " + str(f.time) + " minutes")
+        executor.submit(f.timer)
+        markedFiles[key] = f
+
     return key
 
 def saveFile(file, key):
-    root = os.path.join(app.config['ROOT'], "files\\" + key)
+    root = join(app.config['ROOT'], "files", key)
     while(os.path.isdir(root)):
-        root = os.path.join(app.config['ROOT'], "files\\" + key)
+        root = join(app.config['ROOT'], "files", key)
 
     
     path = os.path.join(root, secure_filename(file.filename))
+
+    print("saving to |", path)
 
     os.mkdir(root)
     file.save(path)
@@ -61,18 +80,24 @@ def saveFile(file, key):
 def showLink(key):
     root = request.url_root
     link = os.path.join(root, key)
-    return render_template('link.html', link=link)
+
+    hasTime = False
+    time = 0
+    if key in markedFiles.keys():
+        hasTime = True
+        time = markedFiles[key].time
+
+    return render_template('link.html', link=link, time=time, hasTime=time)
 
 @app.route('/<key>', methods=["GET"])
 def showFile(key):
-    root = os.path.join(app.config['ROOT'], "files\\" + key)
+    root = join(app.config['ROOT'], "files", key)
 
     return send_from_directory(root, os.listdir(root)[0])
 
 @app.route('/favicon.ico', methods=['GET'])
 def getIcon():
-    root = os.path.join(app.config['ROOT'], "app")
-    root = os.path.join(root, "static\\images")
+    root = join(app.config['ROOT'], "app", "static", "images")
     return send_from_directory(root, "favicon.ico")
 
 def secure_filename(name) -> str:
@@ -94,7 +119,13 @@ def getExtension(name) -> str:
     a = name.split(".")
     return a[len(a)-1]
 
-def markForDeletion(key) -> None:
-    markedFiles.append(markedFile(key, 60))
 
-    
+def getStoreTime(size) -> int:
+    return 60
+
+
+def join(*args) -> str:
+    out = ""
+    for a in args:
+        out = os.path.join(out, a)
+    return out
