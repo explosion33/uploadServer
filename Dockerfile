@@ -15,8 +15,8 @@ RUN pip install -r requirements.txt
 
 
 
-ENV PORT 80
+ENV PORT 8080
 
 ENTRYPOINT [ "uwsgi" ]
 
-CMD ["--socket", "0.0.0.0:80", "--protocol=http", "-w", "main:app"]
+CMD ["--socket", "0.0.0.0:8080", "--protocol=http", "-w", "main:app"]
