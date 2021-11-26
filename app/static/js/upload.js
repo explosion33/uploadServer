@@ -54,7 +54,7 @@ function uploadFile(file) {
   
 	xhr.addEventListener('readystatechange', function(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			window.location.href = "/link/" + xhr.responseText;
+			window.location.href = xhr.responseText;
 		}
 		else if (xhr.readyState == 4 && xhr.status != 200) {
 			console.log("ERROR: Could not upload file " + xhr.status);

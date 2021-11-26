@@ -61,7 +61,9 @@ def storeFile():
         executor.submit(f.timer)
         markedFiles[key] = f
 
-    return key
+    redirect_url = "http://" + app.config["DOMAIN"] + "/link/" + key
+
+    return redirect_url
 
 def saveFile(file, key):
     root = join(app.config['ROOT'], "files", key)
@@ -78,7 +80,7 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = request.url_root
+    root = app.config["DOMAIN"] or request.url_root
     link = os.path.join(root, key)
 
     hasTime = False

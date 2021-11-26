@@ -6,4 +6,5 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'SECRET KEY' # Prevents CSRF attacks
     PORT = os.getenv("PORT")
     ROOT = os.path.dirname(os.path.abspath(__file__))
+    DOMAIN = os.getenv("DOMAIN") or ""
     
