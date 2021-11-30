@@ -16,9 +16,15 @@ var loadLinks = async function() {
     let container = document.getElementById("link_container");
     container.innerHTML = "";
 
+    let num = 0;
     for (var link in links) {
         let name = links[link];
         container.innerHTML += "<div class='row text-center'><div class='col-lg-6 offset-lg-3'><a href='" + link + "'>" + name + "&nbsp</a></div></div>"
+        num ++;
+    }
+    if (num == 0) {
+        container.innerHTML = "<div class='row text-center'><div class='col-lg-6 offset-lg-3'>No Files Found</div></div>";
+        container.innerHTML += "<div class='row text-center'><div class='col-lg-6 offset-lg-3'>You have no files, or they have been previously removed</div></div>"
     }
 
 }
