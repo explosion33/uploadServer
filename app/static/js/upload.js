@@ -54,12 +54,13 @@ function uploadFile(file) {
   
 	xhr.addEventListener('readystatechange', function(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
+			localStorage.setItem(xhr.responseText, file.name);
 			window.location.href = xhr.responseText;
 		}
 		else if (xhr.readyState == 4 && xhr.status != 200) {
 			console.log("ERROR: Could not upload file " + xhr.status);
 		}
-	})
+	});
 
 	xhr.upload.addEventListener("progress", function(e) {
 		if (e.lengthComputable) {
@@ -82,3 +83,4 @@ function uploadFile(file) {
 	formData.append('file', file);
 	xhr.send(formData);
 }
+

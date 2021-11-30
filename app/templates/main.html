@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap - Prebuilt Layout</title>
+    <title>Uploader</title>
 
     <!-- Bootstrap -->
     <link href="{{url_for('static', filename='css/bootstrap-4.4.1.css')}}" rel="stylesheet">
@@ -26,6 +26,18 @@
     </div>
     <br>
  	  <br>
+
+     <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-6 offset-lg-3">
+		        <a class="btn btn-primary" href="/mylinks">View uploaded files</a>
+		  </div>
+    </div>
+
+    <br>
+    <br>
+
+
   	<div class="container">
       <div class="row text-center">
         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
@@ -45,6 +57,7 @@
     </div>
     <br>
     <br>
+
   </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="{{url_for('static', filename='js/jquery-3.4.1.min.js')}}"></script>

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, request, url_for
+from flask import render_template, flash, redirect, request, url_for, jsonify
 from flask.helpers import send_from_directory
 import os
 from app import app
@@ -9,15 +9,18 @@ from flask_executor import Executor
 
 executor = Executor(app)
 
-class markedFile:
-    def __init__(this, key, time=0) -> None:
+class File:
+    def __init__(this, key):
         this.key = key
-        this.time = time
         this.lastPath = this.getPath()
-
 
     def getPath(this) -> str:
         return os.path.join(app.config['ROOT'], "files\\" + this.key)
+
+class markedFile(File):
+    def __init__(this, key, time=0):
+        super().__init__(this, key)
+        this.time = time
 
     def rmrf(this, path) -> None:
         if (os.path.isfile(path)):
@@ -34,8 +37,18 @@ class markedFile:
         time.sleep(this.time*60)
         this.delete()
         markedFiles.remove(this.key)
+        files.remove(this.key)
 
 markedFiles = {}
+files = {}
+
+def updateFiles():
+    root = os.path.join(app.config['ROOT'], "files")
+    for f in os.listdir(root):
+        if (f != ".gitignore"):
+            files[f] = File(f)
+
+updateFiles()
 
 #main page
 @app.route('/', methods=['GET'])
@@ -60,8 +73,12 @@ def storeFile():
         print(f.getPath() + " will be deleted after " + str(f.time) + " minutes")
         executor.submit(f.timer)
         markedFiles[key] = f
+    files[key] = File(key)
 
-    redirect_url = "http://" + app.config["DOMAIN"] + "/link/" + key
+    prefix = app.config["DOMAIN"]
+    if (prefix != ""):
+        prefix = "http://" + prefix
+    redirect_url = prefix + "/link/" + key
 
     return redirect_url
 
@@ -80,7 +97,7 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = app.config["DOMAIN"] or request.url_root
+    root = app.config["DOMAIN"]
     link = os.path.join(root, key)
 
     hasTime = False
@@ -96,6 +113,32 @@ def showFile(key):
     root = join(app.config['ROOT'], "files", key)
 
     return send_from_directory(root, os.listdir(root)[0])
+
+
+@app.route('/validateLinks', methods=["POST"])
+def validateLinks():
+    storage = request.json
+    print(storage)
+
+    newStorage = {}
+
+    for link in storage.keys():
+        #get only end of the link, link can be domain.com/key
+        key = link.split("/")
+        key = key[len(key)-1]
+
+        print(key, files)
+
+        if (key in files.keys()):
+            newStorage[link] = storage[link]
+
+    print(newStorage)
+
+    return jsonify(newStorage)
+
+@app.route('/mylinks', methods=["GET"])
+def myLinks():
+    return render_template("mylinks.html")
 
 @app.route('/favicon.ico', methods=['GET'])
 def getIcon():

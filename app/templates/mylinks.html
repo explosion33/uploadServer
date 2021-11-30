@@ -17,41 +17,28 @@
 			   background-attachment: fixed;
 			   background-position: bottom;
 			  "
+
+        onload="loadLinks()"
     >
       <div class="text-center">
-        <h1 class="display-4">Files Succesfully Uploaded</h1>
+        <h1 class="display-4">Current Links</h1>
         <p class="lead">&nbsp;</p>
       </div>
       <br>
  	    <br>
-  	  <div class="container">
-        <div class="row text-center">
-          <div class="col-lg-6 offset-lg-3">use this link to access your files&nbsp; &nbsp;</div>
+      
+  	  <div id="link_container" class="container">
+        <div class='row text-center'>
+          <div class='col-lg-6 offset-lg-3'>
+            loading ...
+          </div>
         </div>
-        {% if hasTime %}
-        <div class="row text-center">
-          <div class="col-lg-6 offset-lg-3">This file will be deleted in {{time}} minutes&nbsp; &nbsp;</div>
-        </div>
-        {% endif %}
-        <br>
-        <div class="row text-center">    
-          <div class="col-lg-6 offset-lg-3">
-			    <a href="{{link}}">{{link}}&nbsp</a>
-			    <a class="btn btn-sm btn-outline-light" onclick="copy('{{link}}')">copy</a>
-		    </div>
       </div>
 
       </div>
       <br>
       <br>
-
-      <div class="container">
-        <div class="row text-center">
-          <div class="col-lg-6 offset-lg-3">
-              <a class="btn btn-primary" href="/mylinks">View All Uploads</a>
-        </div>
-      </div>
-
+    </div>
     <input type="file" style="display:none" id="dialog"/>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
@@ -62,5 +49,6 @@
     <script src="{{url_for('static', filename='js/bootstrap-4.4.1.js')}}"></script>
 
     <script src="{{url_for('static', filename='js/copy.js')}}"></script>
+    <script src="{{url_for('static', filename='js/links.js')}}"></script>
   </body>
 </html>
