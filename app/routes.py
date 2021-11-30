@@ -76,6 +76,7 @@ def storeFile():
     files[key] = File(key)
 
     prefix = app.config["DOMAIN"]
+    print(prefix, prefix != "")
     if (prefix != ""):
         prefix = "http://" + prefix
     redirect_url = prefix + "/link/" + key
@@ -97,7 +98,7 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = app.config["DOMAIN"]
+    root = "http://" + app.config["DOMAIN"] or request.base_url
     link = os.path.join(root, key)
 
     hasTime = False

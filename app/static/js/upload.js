@@ -84,3 +84,13 @@ function uploadFile(file) {
 	xhr.send(formData);
 }
 
+var init = function() {
+	document.addEventListener('paste', (event) => {
+		event.preventDefault()
+		let file = event.clipboardData.files[0]
+
+		if (file) {
+			uploadFile(file);
+		}
+	});
+}
