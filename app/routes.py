@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, request, url_for, jsonify
 from flask.helpers import send_from_directory
 import os
+import re
 from app import app
 from random import randint
 
@@ -98,8 +99,14 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = "http://" + app.config["DOMAIN"] or request.base_url
-    link = os.path.join(root, key)
+    root = request.base_url
+    
+    root = re.sub(r'(^http://|^https://)', '', root)
+    root = re.sub(r'/.*', '', root)
+
+    root = "http://" + root
+
+    link = root + "/" + key
 
     hasTime = False
     time = 0
