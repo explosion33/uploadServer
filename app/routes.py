@@ -98,7 +98,7 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = "http://" + app.config["DOMAIN"] or request.base_url
+    root = "http://" + request.base_url #app.config["DOMAIN"]
     link = os.path.join(root, key)
 
     hasTime = False
