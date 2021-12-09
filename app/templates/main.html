@@ -20,9 +20,16 @@
 			   background-position: bottom;
 			  "
   >
-    <div class="text-center">
-      <h1 class="display-4">Uploader</h1>
-      <p class="lead">Upload file, get a link</p>
+    <div class="row">
+      <div class="col lg-3">
+      </div>
+      <div class="col-lg-6">
+        <div class="text-center">
+          <h1 class="display-4">Uploader</h1>
+          <p class="lead">Upload file, get a link</p>
+        </div>
+      </div>
+      <div class="col lg-3"></div>
     </div>
     <br>
  	  <br>
@@ -41,7 +48,7 @@
   	<div class="container">
       <div class="row text-center">
         <div class="col-lg-6 offset-lg-3" id="drop-area" ondragover="allowDrop()" ondrop="drop(event)">
-  			    <p>Drag one or more files to this Drop Zone ...</p>
+  			    <p>Drag a file into this Drop Zone ...<br>or, paste (CTRL+V) onto this page</p>
 		        <input class="form-control-file" style="display: none;" type=file id="dialog" name=file onchange="dialog(event)">
 		        <input type="button" value="Browse..." onclick="document.getElementById('dialog').click();" />
 			 
