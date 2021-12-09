@@ -76,11 +76,8 @@ def storeFile():
         markedFiles[key] = f
     files[key] = File(key)
 
-    prefix = app.config["DOMAIN"]
-    print(prefix, prefix != "")
-    if (prefix != ""):
-        prefix = "http://" + prefix
-    redirect_url = prefix + "/link/" + key
+    root = "http://" + getDomain(request.base_url)
+    redirect_url = root + "/link/" + key
 
     return redirect_url
 
@@ -99,10 +96,7 @@ def saveFile(file, key):
 
 @app.route('/link/<key>', methods=["GET"])
 def showLink(key):
-    root = request.base_url
-    
-    root = re.sub(r'(^http://|^https://)', '', root)
-    root = re.sub(r'/.*', '', root)
+    root = getDomain(request.base_url)
 
     root = "http://" + root
 
@@ -182,3 +176,8 @@ def join(*args) -> str:
     for a in args:
         out = os.path.join(out, a)
     return out
+
+def getDomain(root) -> str:
+    root = re.sub(r'(^http://|^https://)', '', root)
+    root = re.sub(r'/.*', '', root)
+    return root
