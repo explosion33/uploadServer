@@ -7,7 +7,7 @@ var drop = function(event) {
 	console.log(files);
 
 	if (files.length == 0) {
-		errorUploading(0);
+		errorUploading("no file");
 	}
 	else if (files.length == 1) {
 		uploadFile(files[0])
@@ -41,8 +41,20 @@ var allowDrop = function(event) {
 	event.preventDefault();
 }
 
-function errorUploading(numFiles) {
-	console.log("error " + numFiles);
+function errorUploading(error) {
+	console.log("error " + error);
+
+	let errorDiv = document.getElementById("error-corner");
+	let html = "";
+
+	html += `<div class="container">`
+	html += `<div class="alert alert-danger alert-dismissible">`;
+	html += `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>`;
+	html += "<strong>Error</strong> Could not upload file (" + error + ")";
+	html += "</div></div>";
+
+	errorDiv.innerHTML = html;
+	
 }
 
 //sends a file to /storeFile
@@ -59,6 +71,7 @@ function uploadFile(file) {
 		}
 		else if (xhr.readyState == 4 && xhr.status != 200) {
 			console.log("ERROR: Could not upload file " + xhr.status);
+			errorUploading(xhr.status);
 		}
 	});
 
