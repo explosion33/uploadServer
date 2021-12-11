@@ -27,6 +27,24 @@ var loadLinks = async function() {
         container.innerHTML += "<div class='row text-center'><div class='col-lg-6 offset-lg-3'>You have no files, or they have been previously removed</div></div>"
     }
 
+    //clear invalid links from storage
+    for (let i = 0; i<localStorage.length; i++) {
+        let link = localStorage.key(i);
+
+        if (!contains(links, link)) {
+            localStorage.removeItem(link);
+        }
+    }
+
+}
+
+function contains(links, link) {
+    for (var l in links) {
+        if (link === l) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
