@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: upload-server-app
+  name: upload-server-app
+  namespace: ethan
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: upload-server-app
+      labels:
+        app:  upload-server-app
+    spec:
+      containers:
+      - name: upload-server-app
+        image: explosion33/upload-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+
+  selector:
+    matchLabels:
+      app: upload-server-app
